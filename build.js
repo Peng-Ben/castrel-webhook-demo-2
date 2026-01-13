@@ -5,6 +5,7 @@ console.log("🚀 开始构建项目...");
 
 // --- 💣 注入典型前端构建错误：找不到 index.html ---
 const entryFile = 'index.html';
+
 if (!fs.existsSync(entryFile)) {
     throw new Error(`🚨 构建失败：入口文件 "${entryFile}" 未找到！请确保它存在于项目根目录。`);
 }
