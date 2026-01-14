@@ -1,0 +1,56 @@
+/**
+ * @fault-type: css-syntax-error
+ * @category: build-errors
+ * @description: CSS或TailwindCSS配置错误
+ * @expected-error: CssSyntaxError
+ * @target-file: src/styles/index.css
+ * @severity: medium
+ */
+
+/* 🚨 故障注入：CSS语法错误 */
+/* 错误类型：无效的Tailwind指令和CSS语法 */
+/* 预期结果：CSS编译失败 */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 🔴 错误：无效的@apply指令 */
+.custom-class {
+  @apply invalid-tailwind-class-that-does-not-exist;
+  @apply text-[invalid-size];
+}
+
+/* 🔴 错误：CSS语法错误 - 缺少分号和括号 */
+.broken-syntax {
+  color: red
+  background: blue /* 缺少分号 */
+  border: 1px solid black
+}
+
+/* 🔴 错误：无效的CSS属性 */
+.invalid-properties {
+  invalid-property: value;
+  another-invalid: 123px;
+}
+
+/* 🔴 错误：选择器语法错误 */
+.broken-selector {
+  color: red;
+
+/* 缺少闭合括号 */
+
+/* 🔴 错误：无效的@layer指令 */
+@layer invalid-layer-name {
+  .test {
+    color: blue;
+  }
+}
+
+/* 🔴 错误：无效的媒体查询 */
+@media (invalid-query) {
+  .test {
+    color: red;
+  }
+}
+
