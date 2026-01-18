@@ -1,142 +1,56 @@
+/**
+ * @fault-type: css-syntax-error
+ * @category: build-errors
+ * @description: CSS或TailwindCSS配置错误
+ * @expected-error: CssSyntaxError
+ * @target-file: src/styles/index.css
+ * @severity: medium
+ */
+
+/* 🚨 故障注入：CSS语法错误 */
+/* 错误类型：无效的Tailwind指令和CSS语法 */
+/* 预期结果：CSS编译失败 */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* 全局样式 */
-@layer base {
-  * {
-    @apply box-border;
-  }
+/* 🔴 错误：无效的@apply指令 */
+.custom-class {
+  @apply invalid-tailwind-class-that-does-not-exist;
+  @apply text-[invalid-size];
+}
 
-  body {
-    @apply bg-gray-50 text-gray-900 antialiased;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
-  }
+/* 🔴 错误：CSS语法错误 - 缺少分号和括号 */
+.broken-syntax {
+  color: red
+  background: blue /* 缺少分号 */
+  border: 1px solid black
+}
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold;
-  }
+/* 🔴 错误：无效的CSS属性 */
+.invalid-properties {
+  invalid-property: value;
+  another-invalid: 123px;
+}
 
-  a {
-    @apply text-primary-600 hover:text-primary-700 transition-colors;
+/* 🔴 错误：选择器语法错误 */
+.broken-selector {
+  color: red;
+
+/* 缺少闭合括号 */
+
+/* 🔴 错误：无效的@layer指令 */
+@layer invalid-layer-name {
+  .test {
+    color: blue;
   }
 }
 
-/* 自定义组件样式 */
-@layer components {
-  .btn {
-    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200 
-           focus:outline-none focus:ring-2 focus:ring-offset-2;
-  }
-
-  .btn-primary {
-    @apply bg-primary-600 text-white hover:bg-primary-700 
-           focus:ring-primary-500 active:bg-primary-800;
-  }
-
-  .btn-secondary {
-    @apply bg-gray-200 text-gray-800 hover:bg-gray-300 
-           focus:ring-gray-400 active:bg-gray-400;
-  }
-
-  .btn-danger {
-    @apply bg-red-600 text-white hover:bg-red-700 
-           focus:ring-red-500 active:bg-red-800;
-  }
-
-  .card {
-    @apply bg-white rounded-lg shadow-md p-6 hover:shadow-lg 
-           transition-shadow duration-200;
-  }
-
-  .input {
-    @apply w-full px-4 py-2 border border-gray-300 rounded-lg 
-           focus:outline-none focus:ring-2 focus:ring-primary-500 
-           focus:border-transparent transition-all;
-  }
-
-  .badge {
-    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
-  }
-
-  .badge-success {
-    @apply bg-green-100 text-green-800;
-  }
-
-  .badge-warning {
-    @apply bg-yellow-100 text-yellow-800;
-  }
-
-  .badge-danger {
-    @apply bg-red-100 text-red-800;
-  }
-
-  .badge-info {
-    @apply bg-blue-100 text-blue-800;
-  }
-}
-
-/* 工具类 */
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-/* 加载动画 */
-.loading-spinner {
-  border: 3px solid rgba(0, 0, 0, 0.1);
-  border-radius: 50%;
-  border-top-color: #0ea5e9;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* 淡入动画 */
-.fade-in {
-  animation: fadeIn 0.3s ease-in;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* 滑入动画 */
-.slide-up {
-  animation: slideUp 0.3s ease-out;
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(10px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
+/* 🔴 错误：无效的媒体查询 */
+@media (invalid-query) {
+  .test {
+    color: red;
   }
 }
 
