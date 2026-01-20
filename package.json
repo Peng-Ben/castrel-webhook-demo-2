@@ -11,8 +11,7 @@
   },
   "dependencies": {
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.22.0"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.1",
@@ -20,6 +19,13 @@
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",
     "vite": "^5.1.0"
-  }
+  },
+  "_comment": "🚨 故障注入：缺少 react-router-dom 依赖",
+  "_fault-type": "dependency-missing",
+  "_category": "build-errors",
+  "_description": "package.json中缺少必要的依赖包 react-router-dom",
+  "_expected-error": "Cannot find package 'react-router-dom'",
+  "_severity": "high",
+  "_note": "react-router-dom 已被移除，会导致构建失败"
 }
 
