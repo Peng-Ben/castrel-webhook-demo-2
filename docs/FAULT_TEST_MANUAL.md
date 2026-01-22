@@ -473,6 +473,7 @@ git push origin main
 2. 确认指出了冲突的包和版本
 3. 确认构建在依赖解析阶段失败
 
+
 **恢复步骤**：
 ```bash
 npm run chaos -- restore
