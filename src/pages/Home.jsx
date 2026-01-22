@@ -1,99 +1,81 @@
 /**
- * @fault-type: asset-size-exceeded
+ * @fault-type: syntax-error
  * @category: build-errors
- * @description: 打包后的文件超过限制
- * @expected-error: Asset exceeds recommended size limit
- * @target-file: src/utils/heavyAssets.js
- * @severity: medium
+ * @description: JSX语法错误，缺少闭合标签导致编译失败
+ * @expected-error: Unexpected token
+ * @target-file: src/pages/Home.jsx
+ * @severity: high
  */
 
-// 🚨 故障注入：资源文件过大
-// 错误类型：单个文件打包后超过大小限制
-// 预期结果：Vite警告或构建失败
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useTaskContext } from '../context/TaskContext';
+import Card from '../components/common/Card';
+import Button from '../components/common/Button';
+import Loading from '../components/common/Loading';
 
 /**
- * 超大的静态数据
- * 这会导致打包后的bundle过大
+ * Home - 首页组件
+ * 
+ * 🚨 故障注入：JSX语法错误
+ * 错误类型：缺少闭合标签
+ * 预期结果：Vite编译失败，无法构建
  */
+function Home() {
+  const { tasks, loading, getTaskStats } = useTaskContext();
+  const [stats, setStats] = useState(null);
 
-// 🔴 错误：包含超大的Base64图片数据
-export const LARGE_IMAGE_DATA = `data:image/png;base64,${'A'.repeat(5000000)}`;
+  useEffect(() => {
+    if (tasks.length > 0) {
+      setStats(getTaskStats());
+    }
+  }, [tasks, getTaskStats]);
 
-// 🔴 错误：包含大量的静态配置数据
-export const MASSIVE_CONFIG = {
-  // 生成10000个配置项
-  ...Object.fromEntries(
-    Array(10000).fill(0).map((_, i) => [
-      `config_${i}`,
-      {
-        id: i,
-        name: `Configuration ${i}`,
-        description: `This is a very detailed description for configuration ${i}`.repeat(50),
-        settings: Object.fromEntries(
-          Array(100).fill(0).map((_, j) => [`setting_${j}`, `value_${i}_${j}`])
-        ),
-        metadata: {
-          created: new Date().toISOString(),
-          tags: Array(100).fill(`tag-${i}`),
-          permissions: Array(100).fill(`permission-${i}`),
-        },
-      },
-    ])
-  ),
-};
+  if (loading && !stats) {
+    return <Loading fullScreen text="加载中..." />;
+  }
 
-// 🔴 错误：包含大量的翻译数据
-export const TRANSLATIONS = {
-  en: Object.fromEntries(
-    Array(10000).fill(0).map((_, i) => [
-      `key_${i}`,
-      `This is translation ${i} in English with a very long text`.repeat(20),
-    ])
-  ),
-  zh: Object.fromEntries(
-    Array(10000).fill(0).map((_, i) => [
-      `key_${i}`,
-      `这是第${i}个翻译，包含非常长的文本`.repeat(20),
-    ])
-  ),
-  ja: Object.fromEntries(
-    Array(10000).fill(0).map((_, i) => [
-      `key_${i}`,
-      `これは翻訳${i}で、非常に長いテキストが含まれています`.repeat(20),
-    ])
-  ),
-};
+  const recentTasks = tasks.slice(0, 5);
 
-// 🔴 错误：包含大量的模拟数据
-export const MOCK_DATA = Array(50000).fill(0).map((_, i) => ({
-  id: i,
-  title: `Item ${i}`,
-  description: `This is a detailed description for item ${i}`.repeat(30),
-  content: `This is the main content for item ${i}`.repeat(100),
-  metadata: {
-    author: `Author ${i}`,
-    created: new Date().toISOString(),
-    tags: Array(50).fill(`tag-${i}`),
-    categories: Array(20).fill(`category-${i}`),
-    comments: Array(100).fill(0).map((_, j) => ({
-      id: j,
-      text: `Comment ${j} for item ${i}`.repeat(10),
-      author: `Commenter ${j}`,
-    })),
-  },
-  relatedItems: Array(100).fill(i),
-  statistics: {
-    views: i * 1000,
-    likes: i * 100,
-    shares: i * 10,
-    history: Array(365).fill(0).map((_, d) => ({
-      date: new Date(Date.now() - d * 86400000).toISOString(),
-      views: Math.floor(Math.random() * 1000),
-    })),
-  },
-}));
+  return (
+    <div className="space-y-8 animate-fade-in">
+      {/* 欢迎区域 - 🚨 错误：缺少闭合的 </div> 标签 */}
+      <div className="text-center py-12 bg-gradient-to-r from-primary-500 to-primary-700 rounded-lg text-white">
+        <h1 className="text-4xl font-bold mb-4">欢迎使用 TaskFlow</h1>
+        <p className="text-xl text-primary-100 mb-6">
+          高效管理您的任务，提升工作效率
+        </p>
+        <div className="flex gap-4 justify-center">
+          <Link to="/tasks/create">
+            <Button variant="secondary" size="lg">
+              ➕ 创建新任务
+            </Button>
+          </Link>
+          <Link to="/tasks">
+            <Button variant="primary" size="lg" className="bg-white text-primary-700 hover:bg-gray-100">
+              📋 查看所有任务
+            </Button>
+          </Link>
+        </div>
+      {/* 🚨 这里缺少 </div> 闭合标签，会导致编译错误 */}
 
-// 🔴 错误：导入大量第三方库（如果未使用tree-shaking）
-// 这会增加bundle大小
-export { default as _ } from 'lodash'; // 整个lodash库
+      {/* 统计卡片 */}
+      {stats && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-blue-600 font-medium">总任务数</p>
+                <p className="text-3xl font-bold text-blue-900">{stats.total}</p>
+              </div>
+              <div className="text-4xl">📊</div>
+            </div>
+          </Card>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default Home;
 
