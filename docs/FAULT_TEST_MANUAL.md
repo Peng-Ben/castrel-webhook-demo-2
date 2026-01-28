@@ -572,6 +572,7 @@ git push origin main
 **恢复步骤**：
 ```bash
 npm run chaos -- restore
+
 git add .
 git commit -m "fix: correct vite configuration"
 git push origin main
