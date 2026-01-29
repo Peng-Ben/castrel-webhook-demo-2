@@ -1,30 +1,18 @@
 /**
- * @fault-type: env-variable-missing
+ * @fault-type: vite-config-error
  * @category: build-errors
- * @description: 构建时必需的环境变量缺失
- * @expected-error: Environment variable is not defined
+ * @description: vite.config.js配置错误
+ * @expected-error: Invalid configuration
  * @target-file: vite.config.js
- * @severity: medium
+ * @severity: high
  */
 
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// 🚨 故障注入：环境变量缺失
-// 错误类型：必需的环境变量未定义
-// 预期结果：构建失败
-
-// 🔴 错误：使用未定义的环境变量
-const requiredApiUrl = process.env.VITE_REQUIRED_API_URL;
-if (!requiredApiUrl) {
-  throw new Error('Environment variable VITE_REQUIRED_API_URL is not defined');
-}
-
-// 🔴 错误：使用未定义的环境变量
-const requiredKey = process.env.VITE_REQUIRED_KEY;
-if (!requiredKey) {
-  throw new Error('Environment variable VITE_REQUIRED_KEY is not defined');
-}
+// 🚨 故障注入：Vite配置错误
+// 错误类型：无效的配置选项
+// 预期结果：Vite无法启动，构建失败
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -32,10 +20,21 @@ export default defineConfig({
   base: '/',
   build: {
     outDir: 'dist',
+    // 🔴 错误：无效的配置选项
+    invalidOption: true, // Unknown option
+    target: 'invalid-target', // Invalid target
+    minify: 'invalid-minifier', // Invalid minifier
   },
-  define: {
-    'process.env.VITE_API_URL': JSON.stringify(requiredApiUrl),
-    'process.env.VITE_KEY': JSON.stringify(requiredKey),
+  // 🔴 错误：无效的resolve配置
+  resolve: {
+    alias: {
+      '@': 'invalid/path/that/does/not/exist',
+    },
+  },
+  // 🔴 错误：无效的server配置
+  server: {
+    port: 'not-a-number', // Port must be a number
+    strictPort: 'not-a-boolean', // Must be boolean
   },
 });
 
