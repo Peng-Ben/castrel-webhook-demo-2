@@ -569,6 +569,7 @@ git push origin main
 2. 确认描述了具体的配置错误
 3. 确认构建在配置加载阶段失败
 
+
 **恢复步骤**：
 ```bash
 npm run chaos -- restore
