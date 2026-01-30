@@ -25,7 +25,7 @@ function Loading({
   const spinnerSize = sizeMap[size];
 
   // 加载器组件
-  const spinner = (
+  。。const spinner = (
     <div className="flex flex-col items-center justify-center">
       <div
         className={`${spinnerSize} border-4 border-gray-200 border-t-primary-600 rounded-full animate-spin`}
