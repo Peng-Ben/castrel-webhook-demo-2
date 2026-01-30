@@ -606,7 +606,7 @@ git push origin main
   ```
   ✘ [ERROR] CssSyntaxError: Unknown word
   
-  
+
   src/styles/index.css:X:X:
     X │   @apply invalid-class-name;
       │          ^^^^^^^^^^^^^^^^^^
@@ -642,6 +642,7 @@ git push origin main
 ```bash
 npm run chaos -- inject --type circular-dependency
 git add .
+
 git commit -m "refactor: reorganize utility functions"
 git push origin main
 ```
