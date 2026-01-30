@@ -1,31 +1,34 @@
 {
   "name": "castrel-webhook-demo",
+  "private": true,
   "version": "2.0.0",
-  "description": "React Chaos Engineering Demo - 混沌工程演练项目",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "chaos": "node scripts/chaos-cli.js"
+    "chaos": "node scripts/chaos-cli.js",
+    "diagnose": "node scripts/diagnose-deployment.js"
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react": "18.3.1",
+    "react-dom": "17.0.2",
+    "react-router-dom": "6.28.1"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.2.1",
-    "autoprefixer": "^10.4.17",
-    "postcss": "^8.4.35",
-    "tailwindcss": "^3.4.1",
-    "vite": "^5.1.0"
+    "@vitejs/plugin-react": "4.3.4",
+    "autoprefixer": "10.4.20",
+    "postcss": "8.4.49",
+    "tailwindcss": "3.4.17",
+    "vite": "6.0.5"
   },
-  "_comment": "🚨 故障注入：缺少 react-router-dom 依赖",
-  "_fault-type": "dependency-missing",
-  "_category": "build-errors",
-  "_description": "package.json中缺少必要的依赖包 react-router-dom",
-  "_expected-error": "Cannot find package 'react-router-dom'",
-  "_severity": "high",
-  "_note": "react-router-dom 已被移除，会导致构建失败"
+  "__chaos_fault__": {
+    "type": "dependency-version-conflict",
+    "category": "build-errors",
+    "description": "依赖版本冲突 - react@18.3.1 与 react-dom@17.0.2 版本不匹配",
+    "expected-error": "ERESOLVE unable to resolve dependency tree - react-dom@17.0.2 requires react@^17.0.2 but react@18.3.1 is installed",
+    "target-file": "package.json",
+    "severity": "high",
+    "note": "React 和 React-DOM 的主版本必须匹配，否则会导致严重的运行时错误或安装失败"
+  }
 }
-
