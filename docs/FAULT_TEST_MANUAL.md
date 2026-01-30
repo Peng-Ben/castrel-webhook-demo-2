@@ -526,6 +526,7 @@ git push origin main
 - 建议配置的位置
 
 **恢复步骤**：
+
 ```bash
 npm run chaos -- restore
 git add .
