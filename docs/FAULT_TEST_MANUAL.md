@@ -606,6 +606,7 @@ git push origin main
   ```
   ✘ [ERROR] CssSyntaxError: Unknown word
   
+  
   src/styles/index.css:X:X:
     X │   @apply invalid-class-name;
       │          ^^^^^^^^^^^^^^^^^^
